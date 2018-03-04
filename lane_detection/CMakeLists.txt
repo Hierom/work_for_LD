@@ -28,7 +28,7 @@ generate_messages(DEPENDENCIES
 set(CMAKE_CXX_FLAGS "-fPIE -fPIC -std=c++11 -O2 -D_FORTIFY_SOURCE=2 -fstack-protector -Wformat -Wformat-security -Wall ${CMAKE_CXX_FLAGS}")
 catkin_package(
 INCLUDE_DIRS include
-LIBRARIES lane_detection
+LIBRARIES preprocessing
 CATKIN_DEPENDS cv_bridge image_transport message_runtime sensor_msgs std_msgs roscpp 
 DEPENDS system_lib
 ) 
@@ -220,23 +220,26 @@ target_link_libraries(avipublisher
   ${OpenCV_LIBRARIES}
 )
 
-add_executable(avisubscriber
-  src/avisubscriber.cpp
-  src/preLaneDetect.cpp
-)
-target_link_libraries(avisubscriber
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
+#add_executable(avisubscriber
+ # src/avisubscriber.cpp
+  #src/preLaneDetect.cpp
+#)
+#target_link_libraries(avisubscriber
+#  ${catkin_LIBRARIES}
+#  ${OpenCV_LIBRARIES}
+#)
 
 
-
-
-add_library(lane_detection
+add_executable(lane_detection
   src/lane_detection.cpp
   src/preLaneDetect.cpp
 )
-add_dependencies(lane_detection ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+#add_library(lane_detection
+#  src/lane_detection.cpp
+#  src/preLaneDetect.cpp
+#)
+#dd_dependencies(lane_detection ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(lane_detection
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}

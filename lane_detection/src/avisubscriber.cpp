@@ -1,3 +1,5 @@
+
+
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
@@ -43,9 +45,10 @@ class InitImgProcessing{
         void initLane(cv::Mat frame);
         void imgCb(const sensor_msgs::ImageConstPtr& msg){
             cv_bridge::CvImagePtr cv_ptr;
+            
             try{
                 cv_ptr = cv_bridge::toCvCopy(msg,sensor_msgs::image_encodings::BGR8);
-            
+                
             }
             catch(cv_bridge::Exception& e){
                 ROS_ERROR("cv_bridge exception : %s",e.what());
@@ -206,7 +209,7 @@ void InitImgProcessing::initLane(cv::Mat frame){
             }else{//laneInfo is empty.
                 ROS_INFO("NO LaneInfo!");
             }
-            cv::imshow("video",frame);
+          //  cv::imshow("video",frame);
             int ckey = waitKey(10);
             if(ckey == 27) exit(1);
   
